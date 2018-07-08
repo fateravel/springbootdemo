@@ -13,8 +13,8 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserService getUserService() {
-        return userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/{username}")

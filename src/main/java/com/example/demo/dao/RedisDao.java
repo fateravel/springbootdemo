@@ -11,8 +11,8 @@ public class RedisDao {
 
     private final StringRedisTemplate template;
 
-    public StringRedisTemplate getTemplate() {
-        return template;
+    public RedisDao(StringRedisTemplate template) {
+        this.template = template;
     }
 
     public void setKey(String key, String value) {

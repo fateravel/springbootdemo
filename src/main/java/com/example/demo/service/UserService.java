@@ -9,8 +9,8 @@ public class UserService {
 
     private final UserDao userDao;
 
-    public UserDao getUserDao() {
-        return userDao;
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     public User findByUsername(String username) {
