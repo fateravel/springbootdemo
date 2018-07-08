@@ -15,3 +15,10 @@ spring:
     port: 6379
     password:
     database: 1
+management:
+  server:
+    port: 9001
+  endpoints:
+    web:
+      exposure:
+        include: "*"
