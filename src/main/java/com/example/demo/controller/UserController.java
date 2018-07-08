@@ -1,7 +1,7 @@
-package com.example.springbootdemo.controller;
+package com.example.demo.controller;
 
-import com.example.springbootdemo.entity.User;
-import com.example.springbootdemo.service.UserService;
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

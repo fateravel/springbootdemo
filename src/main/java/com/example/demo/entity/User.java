@@ -1,4 +1,4 @@
-package com.example.springbootdemo.entity;
+package com.example.demo.entity;
 
 import javax.persistence.*;
 
