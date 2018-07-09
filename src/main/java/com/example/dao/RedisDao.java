@@ -9,19 +9,19 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class RedisDao {
 
-    private final StringRedisTemplate template;
+    private final StringRedisTemplate strTemplate;
 
-    public RedisDao(StringRedisTemplate template) {
-        this.template = template;
+    public RedisDao(StringRedisTemplate strTemplate) {
+        this.strTemplate = strTemplate;
     }
 
     public void setKey(String key, String value) {
-        ValueOperations<String, String> ops = template.opsForValue();
-        ops.set(key, value, 1, TimeUnit.MINUTES);
+        ValueOperations<String, String> ops = strTemplate.opsForValue();
+        ops.set(key, value, 1, TimeUnit.HOURS);
     }
 
     public String getValue(String key) {
-        ValueOperations<String, String> ops = this.template.opsForValue();
+        ValueOperations<String, String> ops = this.strTemplate.opsForValue();
         return ops.get(key);
     }
 }

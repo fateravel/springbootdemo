@@ -4,10 +4,7 @@ import com.example.entity.User;
 import com.example.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
@@ -24,5 +21,11 @@ public class UserController {
     @ApiOperation("获取用户名")
     public User getUser(@PathVariable("username") String username) {
         return userService.findByUsername(username);
+    }
+
+    @PostMapping("/add")
+    @ApiOperation("添加用户")
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
     }
 }
