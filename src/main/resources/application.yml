@@ -15,6 +15,11 @@ spring:
     port: 6379
     password:
     database: 0
+  rabbitmq:
+    host: 47.106.149.90
+    port: 5672
+    username: fateravel
+    password: 123456
 management:
   server:
     port: 9001
@@ -22,3 +27,6 @@ management:
     web:
       exposure:
         include: "*"
+logging:
+  level:
+    root: error

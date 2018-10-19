@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.component.HelloSender;
 import com.example.dao.RedisDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,8 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     RedisDao redisDao;
+    @Autowired
+    private HelloSender helloSender;
 
     @Test
     public void testRedis() {
@@ -30,6 +33,11 @@ public class SpringbootdemoApplicationTests {
     public void getValue() {
         System.out.println("-----------" + redisDao.getValue("name"));
         System.out.println("-----------" + redisDao.getValue("age"));
+    }
+
+    @Test
+    public void hello() {
+        helloSender.send();
     }
 
 }
