@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
-@Api(description = "用户表")
+@Api("用户表")
 public class UserController {
 
     private final UserService userService;

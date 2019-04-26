@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 /**
  * @author pengsong
  */
-@Component
-@RabbitListener(queues = "hello")
+//@Component
+//@RabbitListener(queues = "hello")
 public class HelloReceiver {
 
     @RabbitHandler
