@@ -1,5 +1,8 @@
 package com.example.config;
 
+import com.example.component.BaseJob;
+import org.quartz.JobDetail;
+import org.quartz.Trigger;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.BeansException;
@@ -15,52 +18,48 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
+ * PLAN B
  * @author pengsong
  */
-//@Configuration
+@Configuration
 public class Quartz {
 
-    private static final String CONFIG_PATH="/quartz.properties";
+    private final List<BaseJob> jobs;
 
-    @Bean
-    public JobFactory jobFactory(ApplicationContext applicationContext) {
-        AutoWiringSpringBeanJobFactory jobFactory = new AutoWiringSpringBeanJobFactory();
-        jobFactory.setApplicationContext(applicationContext);
-        return jobFactory;
+    public Quartz(ApplicationContext applicationContext) {
+        this.jobs = new ArrayList<>();
+        Map<String, BaseJob> beanMap = applicationContext.getBeansOfType(BaseJob.class);
+        beanMap.forEach((k, v) -> jobs.add(v));
     }
 
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, @Qualifier("quartzProperties") Properties quartzProperties) throws IOException {
-        SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
-        factoryBean.setAutoStartup(true);
-        factoryBean.setJobFactory(jobFactory);
-        factoryBean.setQuartzProperties(quartzProperties);
-        return factoryBean;
-    }
-
-    @Bean
-    public Properties quartzProperties() throws IOException {
-        PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-        propertiesFactoryBean.setLocation(new ClassPathResource(CONFIG_PATH));
-        propertiesFactoryBean.afterPropertiesSet();
-        return propertiesFactoryBean.getObject();
-    }
-
-    public static class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
-        private transient AutowireCapableBeanFactory beanFactory;
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            beanFactory = applicationContext.getAutowireCapableBeanFactory();
+    public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory) {
+        SchedulerFactoryBean factory = new SchedulerFactoryBean();
+        factory.setOverwriteExistingJobs(true);
+        factory.setStartupDelay(10);
+        //factory.setQuartzProperties(setting.getProperties());
+        factory.setApplicationContextSchedulerContextKey("applicationContext");
+        factory.setAutoStartup(true);
+        factory.setJobFactory(jobFactory);
+        Trigger[] triggers = new Trigger[jobs.size()];
+        JobDetail[] jobDetails = new JobDetail[jobs.size()];
+        for (int i = 0; i < jobs.size(); i++) {
+            triggers[i] = jobs.get(i).getTrigger();
+            jobDetails[i] = jobs.get(i).getJobDetail();
         }
+        factory.setTriggers(triggers);
+        factory.setJobDetails(jobDetails);
+        return factory;
+    }
 
-        @Override
-        protected Object createJobInstance(TriggerFiredBundle bundle) throws Exception {
-            final Object job = super.createJobInstance(bundle);
-            beanFactory.autowireBean(job);
-            return job;
-        }
+    @Bean
+    public JobFactory jobFactory(ApplicationContext con) {
+        return (bundle, scheduler) -> con.getBean(bundle.getJobDetail().getJobClass());
     }
 }
