@@ -27,7 +27,7 @@ import java.util.Properties;
  * PLAN B
  * @author pengsong
  */
-@Configuration
+//@Configuration
 public class Quartz {
 
     private final List<BaseJob> jobs;

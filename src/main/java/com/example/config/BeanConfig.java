@@ -10,18 +10,18 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 /**
  * @author pengsong
  */
-//@Configuration
+@Configuration
 public class BeanConfig {
 
     /**
      * Type safe representation of application.properties
      */
-    /*@Autowired
+    @Autowired
     ClusterConfigurationProperties clusterProperties;
 
     public @Bean RedisConnectionFactory connectionFactory() {
 
         return new JedisConnectionFactory(
                 new RedisClusterConfiguration(clusterProperties.getNodes()));
-    }*/
+    }
 }

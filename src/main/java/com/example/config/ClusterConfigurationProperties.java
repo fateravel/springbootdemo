@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * @author pengsong
  */
-//@Component
-//@ConfigurationProperties(prefix = "spring.redis.cluster")
+@Component
+@ConfigurationProperties(prefix = "spring.redis.cluster")
 public class ClusterConfigurationProperties {
 
     /*
