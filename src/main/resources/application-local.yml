@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8799/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    url: jdbc:mysql://localhost:3306/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root
     password: 123456
   jpa:
@@ -15,14 +15,14 @@ spring:
     port: 6379
     cluster:
       nodes:
-        - 127.0.0.1:6380
-        - 127.0.0.1:6381
-        - 127.0.0.1:6382
-        - 127.0.0.1:6383
-        - 127.0.0.1:6384
-        - 127.0.0.1:6385
+        - 47.106.149.90:6380
+        - 47.106.149.90:6381
+        - 47.106.149.90:6382
+        - 47.106.149.90:6383
+        - 47.106.149.90:6384
+        - 47.106.149.90:6385
   rabbitmq:
-    host: 127.0.0.1
+    host: 47.106.149.90
     port: 5672
     username: fateravel
     password: 123456
