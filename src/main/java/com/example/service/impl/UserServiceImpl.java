@@ -1,10 +1,12 @@
 package com.example.service.impl;
 
+import com.example.controller.UserController;
 import com.example.dao.RedisDao;
 import com.example.dao.UserDao;
 import com.example.entity.User;
 import com.example.service.UserService;
 import com.example.util.JsonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    UserController userController;
 
     private final UserDao userDao;
 

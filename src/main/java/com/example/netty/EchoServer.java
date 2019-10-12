@@ -1,10 +1,10 @@
 package com.example.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
@@ -25,9 +25,9 @@ public class EchoServer {
             b.group(group)
                     .channel(NioServerSocketChannel.class)
                     .localAddress(port)
-                    .childHandler(new ChannelInitializer<Channel>() {
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(Channel channel) throws Exception {
+                        protected void initChannel(SocketChannel channel) throws Exception {
                             channel.pipeline().addLast(new EchoServerHandler());
                         }
                     });
