@@ -1,11 +1,11 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.106.149.90:8799/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    #driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.106.149.90:3306/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root
     password: 123456
   redis:
-    host: 127.0.0.1
+    host: 47.106.149.90
     port: 6379
     cluster:
       nodes:
