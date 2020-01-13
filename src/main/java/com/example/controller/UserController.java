@@ -20,11 +20,12 @@ public class UserController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public UserController(UserService userService) {
+    /*public UserController(UserService userService) {
         this.userService = userService;
-    }
+    }*/
 
     @GetMapping("/{username}")
     @ApiOperation("获取用户名")
