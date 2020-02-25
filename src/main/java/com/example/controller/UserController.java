@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequestMapping("/user")
 @RestController
 @Api("用户表")
@@ -18,7 +21,7 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /*public UserController(UserService userService) {
         this.userService = userService;
@@ -37,5 +40,21 @@ public class UserController {
     public void addUser(@RequestBody User user) {
         logger.info("add user info: " + JsonUtil.serialize(user));
         userService.addUser(user);
+    }
+
+    @GetMapping("/oom")
+    @ApiOperation("oom测试")
+    public void oom() {
+        List<Byte[]> list = new ArrayList<>();
+        int i = 0;
+        try {
+            while (true) {
+                list.add(new Byte[1024 * 1024]);
+                i++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("次数:" + i);
+        }
     }
 }
