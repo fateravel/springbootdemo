@@ -2,6 +2,7 @@ package com.example.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @Api("测试类")
 @RequestMapping("/test")
 @RestController
@@ -23,6 +25,7 @@ public class TestController {
     @GetMapping("/service_list")
     public List<ServiceInstance> getServiceList() {
         List<ServiceInstance> instances = discoveryClient.getInstances("springboot-demo");
+        log.debug("service list------------");
         return instances;
     }
 }
