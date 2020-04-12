@@ -25,3 +25,7 @@ spring:
 logging:
   level:
     root: info
+example:
+  service:
+    enabled: true
+    config: abc-ddd-eff, kkk-lll-sss

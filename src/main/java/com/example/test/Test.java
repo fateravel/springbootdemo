@@ -9,12 +9,13 @@ import java.util.concurrent.Executors;
 
 public class Test {
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
+        /*ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
         for (String name : context.getBeanDefinitionNames()) {
             System.out.println(name);
-        }
+        }*/
+        System.out.println(2 << 13);
     }
 }
