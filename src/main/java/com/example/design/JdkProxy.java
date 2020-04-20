@@ -46,3 +46,28 @@ public class JdkProxy implements InvocationHandler{
         proxy1.eat("fish!!!!!!!!!!!!!");*/
     }
 }
+
+interface ICat {
+    void eat(String food);
+}
+
+interface IDog {
+
+    void run(int speed);
+}
+
+class FatCat implements ICat {
+
+    @Override
+    public void eat(String food) {
+        System.out.println("肥猫吃东西啦：" + food);
+    }
+}
+
+class GunDog implements IDog {
+
+    @Override
+    public void run(int speed) {
+        System.out.println("猎狗在奔跑！！！！！speed:" + speed);
+    }
+}

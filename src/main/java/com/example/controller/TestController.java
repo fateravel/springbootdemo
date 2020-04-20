@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.annotation.Authorize;
 import com.example.entity.User;
 import com.example.mapper.UserMapper;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Authorize
 @Slf4j
 @Api("测试类")
 @RequestMapping("/test")
