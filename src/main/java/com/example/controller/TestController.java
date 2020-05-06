@@ -6,17 +6,22 @@ import com.example.mapper.UserMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-@Authorize
+//@Authorize
 @Slf4j
 @Api("测试类")
-@RequestMapping("/test")
+@RequestMapping("api/test")
 @RestController
 public class TestController {
 
@@ -25,6 +30,11 @@ public class TestController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    private final Map<String, RLock> lockMap = new HashMap<>();
 
     @ApiOperation("获取服务列表")
     @GetMapping("/service_list")
@@ -38,5 +48,20 @@ public class TestController {
     public Object starter(@RequestParam("id") String id) {
         User user = userMapper.findById(Long.parseLong(id));
         return user;
+    }
+
+    @GetMapping("/redis/lock")
+    public Object lock(String key) {
+        RLock lock = redissonClient.getLock(key);
+        lockMap.put(key, lock);
+        lock.lock(30, TimeUnit.SECONDS);
+        return key + "已上锁";
+    }
+
+    @GetMapping("/redis/unlock")
+    public Object unlock(String key) {
+        RLock lock = lockMap.get(key);
+        lock.unlock();
+        return key + "已释放锁";
     }
 }

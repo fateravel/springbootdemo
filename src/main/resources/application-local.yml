@@ -1,17 +1,17 @@
 spring:
   datasource:
     url: jdbc:mysql://47.106.149.90:3306/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=Asia/Shanghai
-  redis:
-    host: 47.106.149.90
-    port: 6379
-    cluster:
-      nodes:
-        - 47.106.149.90:6380
-        - 47.106.149.90:6381
-        - 47.106.149.90:6382
-        - 47.106.149.90:6383
-        - 47.106.149.90:6384
-        - 47.106.149.90:6385
+#  redis:
+#    host: 47.106.149.90
+#    port: 6379
+#    cluster:
+#      nodes:
+#        - 47.106.149.90:6380
+#        - 47.106.149.90:6381
+#        - 47.106.149.90:6382
+#        - 47.106.149.90:6383
+#        - 47.106.149.90:6384
+#        - 47.106.149.90:6385
   rabbitmq:
     host: 47.106.149.90
     port: 5672

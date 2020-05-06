@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/user")
+@RequestMapping("api/user")
 @RestController
 @Api("用户表")
 public class UserController {

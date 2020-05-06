@@ -1,7 +1,11 @@
 package com.example.util;
 
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author pengsong
@@ -13,6 +17,10 @@ public class ThreadPoolUtils {
 
     public void receiveTasks() throws InterruptedException {
         //executorService.invokeAll(tasks);
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }
