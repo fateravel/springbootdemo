@@ -1,20 +1,19 @@
 package com.example.controller;
 
-import com.example.annotation.Authorize;
 import com.example.entity.User;
 import com.example.mapper.UserMapper;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
 import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -26,23 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class TestController {
 
     @Autowired
-    private DiscoveryClient discoveryClient;
-
-    @Autowired
     private UserMapper userMapper;
 
     @Autowired
-    private RedissonClient redissonClient;
+    private Redisson redisson;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     private final Map<String, RLock> lockMap = new HashMap<>();
-
-    @ApiOperation("获取服务列表")
-    @GetMapping("/service_list")
-    public List<ServiceInstance> getServiceList() {
-        List<ServiceInstance> instances = discoveryClient.getInstances("springboot-demo");
-        log.debug("service list------------");
-        return instances;
-    }
 
     @GetMapping("/starter")
     public Object starter(@RequestParam("id") String id) {
@@ -51,17 +42,21 @@ public class TestController {
     }
 
     @GetMapping("/redis/lock")
-    public Object lock(String key) {
-        RLock lock = redissonClient.getLock(key);
+    public Object lock(String key, String value) {
+        /*RLock lock = redisson.getLock(key);
         lockMap.put(key, lock);
-        lock.lock(30, TimeUnit.SECONDS);
+        lock.lock(30, TimeUnit.SECONDS);*/
+        stringRedisTemplate.opsForValue().setIfAbsent(key,value);
+        stringRedisTemplate.expire(key, 30, TimeUnit.SECONDS);
+        stringRedisTemplate.exec();
         return key + "已上锁";
     }
 
     @GetMapping("/redis/unlock")
     public Object unlock(String key) {
-        RLock lock = lockMap.get(key);
-        lock.unlock();
+        /*RLock lock = lockMap.get(key);
+        lock.unlock();*/
+        stringRedisTemplate.delete(key);
         return key + "已释放锁";
     }
 }

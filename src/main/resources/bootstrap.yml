@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.106.149.90:8848
+#        namespace: Public
+#        log-name: test-log
+#        endpoint: 127.0.0.1:8080
