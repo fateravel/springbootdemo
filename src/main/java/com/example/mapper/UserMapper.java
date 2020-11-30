@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * @author pengsong
  * @date 2020/4/12 3:09 下午
@@ -14,4 +16,6 @@ public interface UserMapper {
 
     //@Select("select * from user where id = #{id}")
     User findById(@Param("id") long id);
+
+    List<User> findByUsername(@Param("username") String username);
 }

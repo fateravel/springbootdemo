@@ -8,14 +8,14 @@ spring:
     url: jdbc:mysql://localhost:3306/springbootdemo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-#  redis:
-#    host: localhost
-#    port: 6379
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+  redis:
+    host: localhost
+    port: 6379
 #    password: redis6379
 #      cluster:
 #      nodes:
@@ -26,7 +26,7 @@ spring:
 #        - localhost:6384
 #        - localhost:6385
   rabbitmq:
-    host: localhost
+    host: 47.106.149.90
     port: 5672
     username: fateravel
     password: 123456
@@ -46,5 +46,9 @@ management:
 logging:
   level:
     root: debug
+    org:
+      springframework:
+        boot:
+          autoconfigure: info
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -36,7 +36,7 @@ public class BeanConfig {
         return new AuthorizeInterceptor();
     }
 
-    @Bean
+    //@Bean
     public Redisson redissonClient() {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://47.106.149.90:6379").setPassword("redis6379");

@@ -4,4 +4,7 @@
     <select id="findById" resultType="com.example.entity.User">
         select username,password from user where id = #{id}
     </select>
+    <select id="findByUsername" resultType="com.example.entity.User">
+        select username,password from user where username like CONCAT("%", #{username}, "%")
+    </select>
 </mapper>

@@ -29,8 +29,8 @@ public class TestController {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private Redisson redisson;
+    /*@Autowired
+    private Redisson redisson;*/
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -88,7 +88,7 @@ public class TestController {
         return "success";
     }
 
-    private class UserData {
+    class UserData {
 
         private byte[] data;
 
