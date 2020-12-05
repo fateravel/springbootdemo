@@ -31,7 +31,7 @@ public class UserController {
     @ApiOperation("获取用户名")
     public User getUser(@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
-        logger.info("user info :" + JsonUtil.serialize(user));
+        logger.info("user info :" + user);
         return user;
     }
 
