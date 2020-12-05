@@ -7,9 +7,13 @@ import com.example.mapper.UserMapper;
 import com.example.service.UserService;
 import com.example.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,6 +22,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     UserController userController;
@@ -30,13 +36,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        //return JsonUtil.deserialize(redisDao.getValue(username), User.class);
         List<User> byUsername = userMapper.findByUsername(username);
-        log.info("数据结果:{}", byUsername);
-        if (byUsername.size() > 0) {
-            return byUsername.get(0);
+        logger.info("数据结果:{}", byUsername);
+        if (CollectionUtils.isEmpty(byUsername)) {
+            return null;
         }
-        return null;
+        return byUsername.get(0);
     }
 
     @Override
